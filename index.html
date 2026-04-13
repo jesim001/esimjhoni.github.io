@@ -10,15 +10,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0a1f1c;
+      --bg: #0b2e26;
       --bg-2: #123d36;
       --card: rgba(255,255,255,0.06);
       --line: rgba(255,255,255,0.12);
-      --text: #f4fffb;
-      --muted: #b6e3d8;
-      --accent: #1fd1a5;
-      --accent-2: #4f8cff;
-      --shadow: 0 20px 60px rgba(0,0,0,.32);
+      --text: #fdfcf6;
+      --muted: #e6d9a8;
+      --accent: #d4af37;
+      --accent-2: #1fd1a5;
+      --shadow: 0 20px 60px rgba(0,0,0,.35);
       --radius: 22px;
       --max: 1180px;
     }
@@ -29,8 +29,8 @@
       margin: 0;
       font-family: 'Inter', sans-serif;
       background:
-        radial-gradient(circle at top right, rgba(31,209,165,.18), transparent 30%),
-        linear-gradient(180deg, #0a1f1c 0%, #123d36 100%);
+        radial-gradient(circle at top right, rgba(212,175,55,.18), transparent 30%),
+        linear-gradient(180deg, #0b2e26 0%, #123d36 100%);
       color: var(--text);
       line-height: 1.6;
     }
@@ -467,6 +467,65 @@
       .hero-actions { flex-direction: column; }
       .section-head { flex-direction: column; align-items: start; }
     }
+  
+    /* PREMIUM EFFECTS */
+    .btn-primary {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent, rgba(255,215,0,.4), transparent);
+      opacity: 0;
+      transition: .4s;
+    }
+
+    .btn-primary:hover::after {
+      opacity: 1;
+    }
+
+    h1, h2 {
+      background: linear-gradient(90deg, #fff, #d4af37);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .stat strong {
+      transition: .4s;
+    }
+
+    .stat:hover strong {
+      color: #d4af37;
+      transform: scale(1.1);
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(212,175,55,.4);
+    }
+
+    .gallery-item img {
+      transition: transform .5s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.08);
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: .8s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
   </style>
 </head>
 <body>
@@ -803,6 +862,20 @@
       buttons.forEach(btn => btn.addEventListener('click', () => setLang(btn.dataset.setLang)));
       setLang(saved);
     })();
+  
+
+  // SCROLL ANIMATION
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  });
+
+  document.querySelectorAll('section, .card').forEach(el => {
+    el.classList.add('fade-in');
+    observer.observe(el);
+  });
+
   </script>
 </body>
 </html>
